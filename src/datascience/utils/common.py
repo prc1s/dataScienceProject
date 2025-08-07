@@ -4,7 +4,6 @@ import os
 from src.datascience import logger
 import joblib
 from ensure import ensure_annotations
-
 from box import ConfigBox
 from pathlib import Path
 from typing import Any
@@ -57,5 +56,3 @@ def load_bin(path:Path) -> Any:
     data=joblib.load(path)
     logger.info(f"binary data loaded at {path}")
     return data
-
-
