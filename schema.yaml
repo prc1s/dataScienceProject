@@ -1,1 +1,56 @@
-key: value
+COLUMNS:
+  Age: 
+    type: int
+    min: 0
+    max: 120
+
+  Sex: 
+    type: str
+    allowed_values: ["M", "F"]
+
+  ChestPainType: 
+    type: str
+    allowed_values: ["ATA", "NAP", "ASY", "TA"]
+
+  RestingBP: 
+    type: int
+    min: 0
+    max: 250
+
+  Cholesterol: 
+    type: int
+    min: 0
+    max: 600
+
+  FastingBS: 
+    type: int
+    allowed_values: [0, 1]
+
+  RestingECG: 
+    type: str
+    allowed_values: ["Normal", "ST", "LVH"]
+
+  MaxHR: 
+    type: int
+    min: 0
+    max: 250
+
+  ExerciseAngina: 
+    type: str
+    allowed_values: ["Y", "N"]
+
+  Oldpeak: 
+    type: float
+    min: 0.0
+    max: 10.0
+
+  ST_Slope: 
+    type: str
+    allowed_values: ["Up", "Flat", "Down"]
+
+  HeartDisease: 
+    type: int
+    allowed_values: [0, 1]
+
+TARGET_COLUMN:
+  name: HeartDisease

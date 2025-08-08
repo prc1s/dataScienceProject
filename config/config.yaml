@@ -6,3 +6,9 @@ data_ingestion:
   source_URL: https://github.com/prc1s/heart_attack_prediction_dataset/raw/main/heart.zip
   local_data_file: artifacts/data_ingestion/data.zip
   unzip_dir: artifacts/data_ingestion
+
+data_validation:
+  root_dir: artifacts/data_validation
+  unzip_data_dir: artifacts/data_ingestion/heart.csv.xls
+  STATUS_FILE: artifacts/data_validation/status.txt
+

@@ -1,6 +1,7 @@
 from src.datascience.components.data_ingestion import DataIngestion
+from src.datascience.components.data_validation import DataValidation
 from src.datascience.config.configuration import ConfigurationManager
-from src.datascience.entity.config_entity import DataIngestionConfig
+from src.datascience.entity.config_entity import DataIngestionConfig, DataValidationConfig
 from src.datascience import logger
 
 STAGE_NAME = "Data Ingestion Phase"
@@ -19,6 +20,7 @@ class DataIngestionTrainingPipeline:
     data_ingestion.extract_zip_file()
     logger.info("Unzipped th File!")
     logger.info("Data Ingestion Completed Sucessfully!")
+
 
 
 if __name__ == '__main__':
