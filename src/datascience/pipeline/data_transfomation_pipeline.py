@@ -23,6 +23,7 @@ class DataTransformationPipeline:
                 data_transformation_config = config.get_data_transformation()
                 logger.info("Data Transformation Configurations Retrieved!")
                 data_transformation = DataTransformation(data_transformation_config)
+                data_transformation.preprocess_data()
                 data_transformation.train_test_split()
                 
             else:
