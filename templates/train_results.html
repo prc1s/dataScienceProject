@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Training Results</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root { --bg:#0b5ed7; --card:#0b1020; --text:#e9ecf1; --muted:#9aa3b2; --accent:#6ea8fe; --ok:#3ddc84; }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(160deg,#0b5ed7,#0b5ed7);color:var(--text);font:16px/1.5 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+    .wrap{max-width:1000px;margin:40px auto;padding:0 16px}
+    .header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+    .back{color:var(--muted);text-decoration:none;border:1px solid #243056;padding:6px 10px;border-radius:10px}
+    .title{font-size:28px;font-weight:700;margin:0}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    @media (max-width:800px){.grid{grid-template-columns:1fr}}
+    .card{background:var(--card);border:1px solid #243056;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+    .card h2{margin:0;padding:16px;border-bottom:1px solid #243056;font-size:18px}
+    .card .body{padding:16px}
+    table{width:100%;border-collapse:separate;border-spacing:0}
+    th,td{padding:10px 12px;border-bottom:1px solid #243056;vertical-align:top}
+    th{text-align:left;color:var(--muted);font-weight:600}
+    tr:last-child td{border-bottom:none}
+    .k{color:#cdd5e1}
+    .v{color:#fff}
+    .chip{display:inline-block;padding:.2rem .55rem;border-radius:999px;background:#0e244c;border:1px solid #243056;color:#dbe7ff;font-variant-numeric:tabular-nums}
+    .section{color:var(--accent);font-weight:600;padding-top:14px}
+    .meta{color:var(--muted);font-size:.9rem;margin-top:8px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <a class="back" href="{{ request.referrer or url_for('index') }}">← Back</a>
+      <h1 class="title">Training Results</h1>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Metrics</h2>
+        <div class="body">
+          {% if metrics %}
+          <table>
+            <tbody>
+              {% for k, v in metrics.items() %}
+              <tr>
+                <th class="k">
+                  {# Pretty label for common keys #}
+                  {% if k|lower == 'rmse' or k|lower == 'rsme' %}RMSE
+                  {% elif k|lower == 'mae' %}MAE
+                  {% elif k|lower == 'r2' %}R²
+                  {% else %}{{ k|replace('_',' ')|title }}
+                  {% endif %}
+                </th>
+                <td class="v">
+                  {% if v is number %}
+                    <span class="chip">{{ "%.4f"|format(v) }}</span>
+                  {% else %}
+                    {{ v }}
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+            <div class="meta">No metrics found.</div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Parameters</h2>
+        <div class="body">
+          {% macro render_params(p) -%}
+            {% for k, v in p.items() %}
+              {% if v is mapping %}
+                <tr><td colspan="2" class="section">{{ k }}</td></tr>
+                {{ render_params(v) }}
+              {% else %}
+                <tr>
+                  <th class="k">{{ k }}</th>
+                  <td class="v">
+                    {% if v is number %}<span class="chip">{{ v }}</span>{% else %}{{ v }}{% endif %}
+                  </td>
+                </tr>
+              {% endif %}
+            {% endfor %}
+          {%- endmacro %}
+
+          {% if params %}
+          <table>
+            <tbody>
+              {{ render_params(params) }}
+            </tbody>
+          </table>
+          {% else %}
+            <div class="meta">No parameters found.</div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="meta">Page generated after training run.</div>
+  </div>
+</body>
+</html>

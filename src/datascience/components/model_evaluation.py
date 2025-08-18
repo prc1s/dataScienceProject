@@ -11,6 +11,9 @@ import joblib
 from src.datascience import logger
 from src.datascience.config.configuration import ConfigurationManager
 from src.datascience.entity.config_entity import ModelEvaluationConfig
+os.environ["MLFLOW_TRACKING_URI"] = os.getenv("MLFLOW_TRACKING_URI")
+os.environ["MLFLOW_TRACKING_USERNAME"]=os.getenv("MLFLOW_TRACKING_USERNAME")
+os.environ["MLFLOW_TRACKING_PASSWORD"]=os.getenv("MLFLOW_TRACKING_PASSWORD")
 
 
 class ModelEvaluation:

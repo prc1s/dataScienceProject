@@ -10,6 +10,7 @@ tqdm
 ensure
 joblib
 Flask
+flask
 types-pyYAML
 Flask-cors
 python-dotenv
